@@ -463,6 +463,12 @@ var UrlUnfurl = {
             UrlUnfurl.positionMenuRelativeTo(UrlUnfurl.menuContainer, button, 'ur', 'v');
         }
 
+        let marginRight = $(UrlUnfurl.menuContainer).css('margin-right').replace(/[^0-9]/g, '')*1;
+
+        while((UrlUnfurl.menuContainer.offset().left + UrlUnfurl.menuContainer.width() + marginRight) > $(window).width() && UrlUnfurl.menuContainer.offset().left > 0){
+            UrlUnfurl.menuContainer.css('left', (UrlUnfurl.menuContainer.position().left-1)+'px');
+        }
+
     },
 
     hideMenu : function(){
@@ -896,7 +902,7 @@ var UrlUnfurl = {
     },
 
     getUrlInfo : function(url, callback){
-        
+
         if(UrlUnfurl.hasUrlCache(url)){
             AntzLog.log('Has cache '+url);
             callback(UrlUnfurl.getUrlCache(url).data);

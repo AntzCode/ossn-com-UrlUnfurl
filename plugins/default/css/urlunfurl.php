@@ -85,6 +85,7 @@
     z-index: 1200 !important;
     display: none;
     text-align: left;
+    margin: 0 8px;
 }
 .urlunfurl-menu.open{
     display: block !important;

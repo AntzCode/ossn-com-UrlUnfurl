@@ -47,8 +47,8 @@ class UrlUnfurl
 		self::$ossnComponentSettings = (new \OssnComponents())->getComSettings(self::$COMPONENT_ID);
 
 		// for debugging @TODO: remove this
-		//(new \OssnComponents())->setSettings('UrlUnfurl', ['http_user_agent_html' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.16 (KHTML, like Gecko) Chrome/24.0.1304.0 Safari/537.16']);
-		//(new \OssnComponents())->setSettings('UrlUnfurl', ['http_user_agent_images' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.16 (KHTML, like Gecko) Chrome/24.0.1304.0 Safari/537.16']);
+		(new \OssnComponents())->setSettings('UrlUnfurl', ['http_user_agent_html' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.16 (KHTML, like Gecko) Chrome/24.0.1304.0 Safari/537.16']);
+		(new \OssnComponents())->setSettings('UrlUnfurl', ['http_user_agent_images' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.16 (KHTML, like Gecko) Chrome/24.0.1304.0 Safari/537.16']);
 
 		$this->objectTempPath = ossn_get_userdata('tmp/urlunfurl/');
 		$this->objectStoragePath = ossn_get_userdata('components/urlunfurl/');
