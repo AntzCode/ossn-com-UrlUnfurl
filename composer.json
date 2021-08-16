@@ -1,0 +1,24 @@
+{
+  "name": "antzcode/urlunfurl",
+  "description": "Unfurl URL's for a preview when posting links on a wall",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "AntzCode Ltd",
+      "homepage": "http://www.antzcode.com"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/AntzCode/ossn-com-UrlUnfurl",
+    "issues": "https://github.com/AntzCode/ossn-com-UrlUnfurl/issues"
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "UrlUnfurl\\": "src/"
+    }
+  }
+}
