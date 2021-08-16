@@ -896,7 +896,7 @@ var UrlUnfurl = {
     },
 
     getUrlInfo : function(url, callback){
-
+        
         if(UrlUnfurl.hasUrlCache(url)){
             AntzLog.log('Has cache '+url);
             callback(UrlUnfurl.getUrlCache(url).data);

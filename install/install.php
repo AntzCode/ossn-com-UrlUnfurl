@@ -28,6 +28,8 @@ $defaultSettings = (object) [
 	'max_url_num_images' => 8,
 	'derived_description_min_length' => 192,
 	'derived_description_max_length' => 384,
+	'http_user_agent_html' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.16 (KHTML, like Gecko) Chrome/24.0.1304.0 Safari/537.16',
+	'http_user_agent_images' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.16 (KHTML, like Gecko) Chrome/24.0.1304.0 Safari/537.16',
 ];
 
 if(!isset($comSettings) || !is_object($comSettings)){

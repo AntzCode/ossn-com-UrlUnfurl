@@ -323,40 +323,12 @@ class HtmlDocument
 
 	public static function createFromUrl(Url $url){
 
-		ini_set('display_errors', 1);
-		error_reporting(E_ALL);
-
-		if(in_array('curl', get_loaded_extensions())){
-
-			$ch = curl_init($url->url);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 45); //timeout in seconds
-			curl_setopt($ch, CURLOPT_HEADER  , 1);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$response = curl_exec($ch);
-			$httpCode = (string) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-			$headers = substr($response, 0, $headerSize);
-			$html = substr($response, $headerSize);
-			curl_close($ch);
-
-		}else{
-
-			$header = '';
-			if($html = file_get_contents($url->url)){
-				$httpCode = (empty($html) ? '500' : '200');
-			}else{
-				$httpCode = '500';
-			}
-			$headers = '';
-
-		}
+		$httpResult = Fetcher::downloadHtml($url);
 
 		$htmlDocument = new self();
-		$htmlDocument->httpCode = $httpCode;
-		$htmlDocument->headers = $headers;
-		$htmlDocument->html = $html;
+		$htmlDocument->httpCode = $httpResult->httpCode;
+		$htmlDocument->headers = $httpResult->headers;
+		$htmlDocument->html = $httpResult->html;
 
 		return $htmlDocument;
 	}

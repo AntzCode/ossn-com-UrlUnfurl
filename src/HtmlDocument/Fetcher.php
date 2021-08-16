@@ -59,6 +59,43 @@ class Fetcher
 		return '.'.preg_replace('/^.*\.([a-zA-Z0-9]*)$/', '$1', $filenameParts[0]);
 	}
 
+	public static function downloadHtml(Url $url){
+
+		if(in_array('curl', get_loaded_extensions())){
+			$ch = curl_init($url->url);
+			$ua = UrlUnfurl::getSettings('httpUserAgentHtml');
+			curl_setopt($ch, CURLOPT_USERAGENT, $ua);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 45); //timeout in seconds
+			curl_setopt($ch, CURLOPT_HEADER  , 1);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			$response = curl_exec($ch);
+			$httpCode = (string) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+			$headers = substr($response, 0, $headerSize);
+			$html = substr($response, $headerSize);
+			curl_close($ch);
+
+		}else{
+
+			if($html = file_get_contents($url->url)){
+				$httpCode = (empty($html) ? '500' : '200');
+			}else{
+				$httpCode = '500';
+			}
+			$headers = '';
+
+		}
+
+		return (object) [
+			'httpCode' => $httpCode,
+			'headers' => $headers,
+			'html' => $html
+		];
+
+	}
+
 	public static function downloadImage($imageUrl, Url $url){
 
 		// normalise the url
@@ -101,6 +138,8 @@ class Fetcher
 
 		if(in_array('curl', get_loaded_extensions())){
 			$ch = curl_init();
+			$ua = UrlUnfurl::getSettings('httpUserAgentImages');
+			curl_setopt($ch, CURLOPT_USERAGENT, $ua);
 			curl_setopt($ch, CURLOPT_URL, $imageUrl);
 			curl_setopt($ch, CURLOPT_VERBOSE, 0);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
