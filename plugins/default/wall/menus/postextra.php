@@ -18,6 +18,8 @@ use UrlUnfurl\Result\Type;
 
 $postId = null;
 
+$hasUnfurl = false;
+
 foreach($params['menu'] as $menu) {
     foreach($menu as $link) {
         if($link['name']==='comment'){
@@ -30,7 +32,7 @@ foreach($params['menu'] as $menu) {
 if($postId){
 
 	if($postUrl = Database::getOneBy('_post_url', ['post_id' => $postId])){
-		$found = false;
+
 		$resultType = Result::getById($postUrl->urlId);
 
 		if(!$resultType instanceof Type){
@@ -39,54 +41,38 @@ if($postId){
 
 		foreach($resultType->getImages() as $imageData){
 			if($imageData->guid === $postUrl->image){
-				$found = true;
+				$hasUnfurl = true;
 				break;
 			}
 		}
 
-		if(!$found){
-			return;
-		}
-
-	}else{
-	    return;
-    }
+	}
 
 }
 
 ?>
-<div class="urlunfurl urlunfurl-post-extra">
-    <div class="urlunfurl-title">
-        <a href="<?php echo $resultType->getUrl()->url ?>"><?php echo htmlentities($resultType->getTitle()) ?></a>
-    </div>
-    <div class="urlunfurl-image">
-        <a href="<?php echo $resultType->getUrl()->url ?>">
-            <img src="<?php echo ossn_site_url('/action/urlunfurl/image?img='.$imageData->filename) ?>" />
-        </a>
-    </div>
-    <div class="urlunfurl-description">
-		<?php echo htmlentities($resultType->getDescription()) ?>
-    </div>
-</div>
 
 
-?>
-<div class="urlunfurl urlunfurl-post-extra">
-    <div class="urlunfurl-title">
-        <a href="<?php echo $resultType->getUrl()->url ?>"><?php echo htmlentities($resultType->getTitle()) ?></a>
+<?php if($hasUnfurl){ ?>
+
+    <div class="urlunfurl urlunfurl-post-extra">
+        <div class="urlunfurl-title">
+            <a href="<?php echo $resultType->getUrl()->url ?>"><?php echo htmlentities($resultType->getTitle()) ?></a>
+        </div>
+        <div class="urlunfurl-image">
+            <a href="<?php echo $resultType->getUrl()->url ?>">
+                <img src="<?php echo ossn_site_url('/action/urlunfurl/image?img='.$imageData->filename) ?>" />
+            </a>
+        </div>
+        <div class="urlunfurl-description">
+            <?php echo htmlentities($resultType->getDescription()) ?>
+        </div>
     </div>
-    <div class="urlunfurl-image">
-        <a href="<?php echo $resultType->getUrl()->url ?>">
-            <img src="<?php echo ossn_site_url('/action/urlunfurl/image?img='.$imageData->filename) ?>" />
-        </a>
-    </div>
-    <div class="urlunfurl-description">
-		<?php echo htmlentities($resultType->getDescription()) ?>
-    </div>
-</div>
+
+<?php } ?>
+
 
 <?php
-
 $postextra = $params['menu'];
 if ($postextra && ossn_isLoggedin()) {
 	if (!empty($postextra)) {
