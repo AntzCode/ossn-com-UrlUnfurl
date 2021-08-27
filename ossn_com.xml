@@ -21,7 +21,7 @@
     <license>Open Source Social Network License (OSSN LICENSE) v3.0</license>
     <author_url>https://github.com/AntzCode/opensource-socialnetwork</author_url>
     <license_url>https://github.com/AntzCode/opensource-socialnetwork/components/AntzCode/LICENSE.md</license_url>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 	<requires>
 		<type>ossn_version</type>
 		<version>5.6</version>
