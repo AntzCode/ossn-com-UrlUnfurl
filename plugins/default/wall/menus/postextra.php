@@ -68,3 +68,40 @@ if($postId){
 		<?php echo htmlentities($resultType->getDescription()) ?>
     </div>
 </div>
+
+
+?>
+<div class="urlunfurl urlunfurl-post-extra">
+    <div class="urlunfurl-title">
+        <a href="<?php echo $resultType->getUrl()->url ?>"><?php echo htmlentities($resultType->getTitle()) ?></a>
+    </div>
+    <div class="urlunfurl-image">
+        <a href="<?php echo $resultType->getUrl()->url ?>">
+            <img src="<?php echo ossn_site_url('/action/urlunfurl/image?img='.$imageData->filename) ?>" />
+        </a>
+    </div>
+    <div class="urlunfurl-description">
+		<?php echo htmlentities($resultType->getDescription()) ?>
+    </div>
+</div>
+
+<?php
+
+$postextra = $params['menu'];
+if ($postextra && ossn_isLoggedin()) {
+	if (!empty($postextra)) {
+		foreach ($postextra as $menu) {
+			foreach ($menu as $link) {
+				$class = "post-control-" . $link['name'];
+				if (isset($link['class'])) {
+					$link['class'] = $class . ' ' . $link['class'];
+				} else {
+					$link['class'] = $class;
+				}
+				unset($link['name']);
+				$link = ossn_plugin_view('output/url', $link);
+				echo "<li>" . $link . "</li>";
+			}
+		}
+	}
+}

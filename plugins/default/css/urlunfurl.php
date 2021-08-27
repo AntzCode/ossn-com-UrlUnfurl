@@ -175,6 +175,7 @@
     border: solid 1px #3b5998;
     background: #9ccada1f;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 .urlunfurl-post-extra .urlunfurl-title{
     font-size: 1.9rem;
